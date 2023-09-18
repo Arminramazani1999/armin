@@ -35,6 +35,7 @@ def user_login(request):
         if form.is_valid():
             cd = form.cleaned_data
             user = authenticate(username=cd['username'], password=cd['password'])
+            print(cd['username'], cd['password'])
             if user is not None:
                 login(request, user)
                 return redirect('home:home')
@@ -94,7 +95,9 @@ def user_register(request):
         return redirect('home:home')
     form = RegisterForm(instance=user)
     if request.method == 'POST':
-        form = RegisterForm(data=request.POST,instance=user)
+        form = RegisterForm(data=request.POST, instance=user)
+        print(form)
+        print(request.POST)
         if form.is_valid():
             form.save()
             user.is_paid = True
