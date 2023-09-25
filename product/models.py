@@ -6,6 +6,7 @@ from account.models import User
 class Category(models.Model):
     parent = models.ForeignKey('self', on_delete=models.CASCADE, related_name='subs', blank=True, null=True)
     title = models.CharField(max_length=100)
+    image = models.ImageField(upload_to="images", null=True)
     slug = models.SlugField()
 
     def __str__(self):
@@ -27,7 +28,7 @@ class Color(models.Model):
 
 
 class Product(models.Model):
-    category = models.ManyToManyField(Category, blank=True)
+    category = models.ManyToManyField(Category, blank=True, related_name='catt')
     title = models.CharField(max_length=30)
     text = models.TextField()
     price = models.IntegerField()

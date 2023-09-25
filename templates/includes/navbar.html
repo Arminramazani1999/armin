@@ -12,13 +12,13 @@
                 <div class="navbar-nav w-100">
                     {% for cat in categories %}
                         {% if not cat.parent %}
-                            {% if cat.subs.all %}
+                            {% if cat.catt.all %}
                                 <div class="nav-item dropdown dropright">
                                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{ cat.title }}
                                         <i class="fa fa-angle-right float-right mt-1"></i>
                                     </a>
                                     <div class="dropdown-menu position-absolute rounded-0 border-0 m-0">
-                                        {% for sub in cat.subs.all %}
+                                        {% for sub in cat.catt.all %}
                                             <a href="" class="dropdown-item">{{ sub }}</a>
                                         {% endfor %}
                                     </div>

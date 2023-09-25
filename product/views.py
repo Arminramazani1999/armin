@@ -1,4 +1,4 @@
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage
 from django.shortcuts import render
 from django.views.generic import DetailView, TemplateView
 
@@ -35,20 +35,47 @@ def category_test(request):
 
 def product_list(request):
     product = Product.objects.all()
+    categories = Category.objects.all()
+    categoryss = []
+    for catts in categories:
+        if not catts.parent:
+            if catts.catt.all():
+                categoryss.append(catts)
     color = request.GET.getlist('color')
     size = request.GET.getlist('size')
+    cat = request.GET.getlist('cat')
     min_price = request.GET.get('min_price')
     max_price = request.GET.get('max_price')
-    print(color, size, min_price, max_price)
+    # name = request.GET.appendlist()
+    test = []
+
     if color:
         product = product.filter(color__title__in=color).distinct()
+        test.append(color)
     if size:
         product = product.filter(size__title__in=size).distinct()
+        test.append(size)
+    if request.GET.get('next'):
+        cat_2 = request.GET.getlist('next')
+        product = product.filter(category__title__in=cat_2).distinct()
+    if cat:
+        print("yes")
+        product = product.filter(category__title__in=cat).distinct()
+        test.append(cat)
+    # print(name)
     if min_price and max_price:
         product = product.filter(price__gte=min_price, price__lte=max_price).distinct()
+        test.append(min_price)
+        test.append(max_price)
 
+    if request.method == 'GET':
+        print(request.GET.getlist('next'))
+        print('SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS')
+    print(request.GET.getlist('page'))
+    print(test)
+    print(request.GET.get('next'))
     pagenumber = request.GET.get('page')
     paginator = Paginator(product, 1)
-    product = paginator.get_page(pagenumber)
+    pp = paginator.get_page(pagenumber)
 
-    return render(request, 'product/product_list.html', {'products': product})
+    return render(request, 'product/product_list.html', {'products': pp, 'categories': categoryss, 'test':test})
