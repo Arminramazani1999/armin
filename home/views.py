@@ -5,4 +5,7 @@ from product.models import Product, Category
 def home(request):
     product = Product.objects.all()
     categories = Category.objects.all()
-    return render(request, 'home/home.html', {'products': product, 'categories': categories})
+    recent_product = Product.objects.all()[:4]
+    print(recent_product)
+    return render(request, 'home/home.html',
+                  {'products': product, 'categories': categories, 'recents': recent_product})

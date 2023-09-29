@@ -36,6 +36,10 @@ class Product(models.Model):
     img = models.ImageField(upload_to="images", null=True)
     size = models.ManyToManyField(Size, blank=True, related_name="products")
     color = models.ManyToManyField(Color, related_name="products")
+    created = models.DateTimeField(auto_now_add=True,null=True,blank=True)
+
+    class Meta:
+        ordering = ('-created',)
 
     def __str__(self):
         return self.title

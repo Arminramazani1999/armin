@@ -220,14 +220,14 @@
         <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Recent Products</span>
         </h2>
         <div class="row px-xl-5">
-            {% for product in products %}
+            {% for recent in recents %}
                 <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
                     <div class="product-item bg-light mb-4">
                         <div class="product-img position-relative overflow-hidden">
-                            <img class="img-fluid w-100" src="{{ product.img.url }}" alt="">
+                            <img class="img-fluid w-100" src="{{ recent.img.url }}" alt="">
                             <div class="product-action">
                                 <a class="btn btn-outline-dark btn-square"
-                                   href="{% url 'product:product_detail' product.id %}"><i
+                                   href="{% url 'product:product_detail' recent.id %}"><i
                                         class="fa fa-shopping-cart"></i></a>
                                 <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
                                 <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
@@ -236,9 +236,9 @@
                         </div>
                         <div class="text-center py-4">
                             <a class="h6 text-decoration-none text-truncate"
-                               href="{% url 'product:product_detail' product.id %}">{{ product.title }}</a>
+                               href="{% url 'product:product_detail' recent.id %}">{{ recent.title }}</a>
                             <div class="d-flex align-items-center justify-content-center mt-2">
-                                <h5>${{ product.price }}</h5>
+                                <h5>${{ recent.price }}</h5>
                                 {#                            <h6 class="text-muted ml-2">#}
                                 {#                                <del>$123.00</del>#}
                                 {#                            </h6>#}

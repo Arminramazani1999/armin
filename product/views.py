@@ -13,6 +13,11 @@ def detail(request, id):
     return render(request, 'product/product_detail.html', {'product': product})
 
 
+def detall_all(request):
+    product = Product.objects.all()
+    return render(request, 'product/product_detail.html', {'product': product})
+
+
 def category_product(request):
     category = Category.objects.all()
     # category_1 = Category.objects.get(id=category.get('slug'))
@@ -46,7 +51,8 @@ def product_list(request):
     cat = request.GET.getlist('cat')
     min_price = request.GET.get('min_price')
     max_price = request.GET.get('max_price')
-    # name = request.GET.appendlist()
+    q = request.GET.get('q')
+
     test = []
 
     if color:
@@ -68,14 +74,11 @@ def product_list(request):
         test.append(min_price)
         test.append(max_price)
 
-    if request.method == 'GET':
-        print(request.GET.getlist('next'))
-        print('SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS')
-    print(request.GET.getlist('page'))
-    print(test)
-    print(request.GET.get('next'))
+    if q:
+        product = product.filter(title__icontains=q).distinct()
+    print(q)
     pagenumber = request.GET.get('page')
     paginator = Paginator(product, 1)
     pp = paginator.get_page(pagenumber)
 
-    return render(request, 'product/product_list.html', {'products': pp, 'categories': categoryss, 'test':test})
+    return render(request, 'product/product_list.html', {'products': pp, 'categories': categoryss, 'test': test})
