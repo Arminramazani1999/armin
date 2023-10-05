@@ -23,6 +23,8 @@ def cart_add(request, pk):
             'quantity')
         cart = Cart(request)
         cart.add(product, quantity, color, size)
+        qw = request.session['number'] = str(quantity)
+        print(qw)
         # print(size, color, quantity)
         return redirect('cart:cart_detail')
 
@@ -109,7 +111,7 @@ CallbackURL = 'http://127.0.0.1:8080/verify/'
 
 def send_request(request, pk):
     order = get_object_or_404(Order, id=pk, user=request.user)
-    address = get_object_or_404(Address, id=request.POST.get('address')) # address = Address.objects.get(id=)
+    address = get_object_or_404(Address, id=request.POST.get('address'))  # address = Address.objects.get(id=)
     order.address = f"{address.address} - {address.phone}"
     order.save()
     request.session['order_id'] = str(order.id)
@@ -154,7 +156,7 @@ def verify(request):
             t_status = req.json()['data']['code']
             if t_status == 100:
                 # tarakonesh movafagh
-                order.is_paid = True            # pardakht shodeh ast
+                order.is_paid = True  # pardakht shodeh ast
                 order.save()
                 #       میتوانیم اینجا یک سیسم پیامکی ایجاد کنیم که برای پرداخت هر کاربر به ما اطلاع دهد
                 return HttpResponse('Transaction success.\nRefID: ' + str(

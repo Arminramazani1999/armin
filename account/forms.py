@@ -67,11 +67,13 @@ class LoginForm(forms.Form):
             )
 
 
-class RegisterForm(forms.ModelForm):
+class RegisterForm(UserCreationForm):
+    # def __init__(self, *args, **kwargs) -> None:
+    #     super().__init__(*args, **kwargs)
 
     class Meta:
         model = User
-        fields = ('password', 'rpassword', 'fullname', 'email')
+        fields = ('fullname', 'phone', 'email', 'password1', 'password2')
     # username = forms.CharField(max_length=40,
     #                            widget=forms.TextInput(attrs={'class': "form-control"}))
     # password = forms.CharField(max_length=40,

@@ -89,20 +89,37 @@ def user_logout(request):
 
 
 def user_register(request):
-    user = request.user
-    is_paid = user.is_paid
-    if is_paid:
+    if request.user.is_anonymous:
+        form = RegisterForm()
+        if request.method == 'POST':
+            form = RegisterForm(data=request.POST)
+            if form.is_valid():
+                form.save()
+                print(request.user)
+                return redirect('home:home')
+    else:
         return redirect('home:home')
-    form = RegisterForm(instance=user)
-    if request.method == 'POST':
-        form = RegisterForm(data=request.POST, instance=user)
-        print(form)
-        print(request.POST)
-        if form.is_valid():
-            form.save()
-            user.is_paid = True
-            user.save()
-
-            # login(request, user)
-            return redirect('home:home')
     return render(request, 'account/register.html', {'form': form})
+
+
+
+
+
+# def user_register(request):
+#     user = request.user
+#     is_paid = user.is_paid
+#     if is_paid:
+#         return redirect('home:home')
+#     form = RegisterForm(instance=user)
+#     if request.method == 'POST':
+#         form = RegisterForm(data=request.POST, instance=user)
+#         print(form)
+#         print(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             user.is_paid = True
+#             user.save()
+#
+#             # login(request, user)
+#             return redirect('home:home')
+#     return render(request, 'account/register.html', {'form': form})

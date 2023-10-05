@@ -27,16 +27,16 @@
                             <img class="w-100 h-100" src="{{ product.img.url }}" alt="Image">
                         </div>
 
-                        {#                        <div class="carousel-item">#}
-                        {#                            <img class="w-100 h-100" src="img/product-2.jpg" alt="Image">#}
-                        {#                        </div>#}
                     </div>
-                    <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
-                        <i class="fa fa-2x fa-angle-left text-dark"></i>
-                    </a>
-                    <a class="carousel-control-next" href="#product-carousel" data-slide="next">
-                        <i class="fa fa-2x fa-angle-right text-dark"></i>
-                    </a>
+{#                    {% for p in prodoucts %}#}
+{#                        <a class="carousel-control-prev" href="{% url 'product:product_detail' p.id %}" data-slide="prev">#}
+{#                            <i class="fa fa-2x fa-angle-left text-dark"></i>#}
+{#                        </a>#}
+{#                        <a class="carousel-control-next" href="{% url 'product:product_detail' p.id %}" data-slide="next">#}
+{#                            <i class="fa fa-2x fa-angle-right text-dark"></i>#}
+{#                        </a>#}
+{#                    {% endfor %}#}
+
                 </div>
             </div>
 
@@ -256,8 +256,9 @@
                                                        class="btn btn-primary px-3">
                                             </div>
                                         </form>
-                                     {% else %}
-                                        <a class="btn btn-success" href="{% url 'account:login' %}">for sending comment please login</a>
+                                    {% else %}
+                                        <a class="btn btn-success" href="{% url 'account:login' %}">for sending comment
+                                            please login</a>
                                     {% endif %}
                                 </div>
                             </div>

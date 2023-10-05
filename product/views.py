@@ -6,11 +6,12 @@ from product.models import Product, Category, Comment
 
 
 def detail(request, id):
+    products = Product.objects.all()
     product = Product.objects.get(id=id)
     if request.method == 'POST':
         body = request.POST.get('message')
         Comment.objects.create(body=body, product=product, user=request.user)
-    return render(request, 'product/product_detail.html', {'product': product})
+    return render(request, 'product/product_detail.html', {'product': product, 'prodoucts': products})
 
 
 def detall_all(request):
@@ -48,26 +49,31 @@ def product_list(request):
                 categoryss.append(catts)
     color = request.GET.getlist('color')
     size = request.GET.getlist('size')
-    cat = request.GET.getlist('cat')
+    cat = request.GET.get('cat')
     min_price = request.GET.get('min_price')
     max_price = request.GET.get('max_price')
     q = request.GET.get('q')
+    next_page = request.GET.getlist('next')
 
-    test = []
-
+    test = ['color', 'size', 'cat', 'q', 'next']
     if color:
         product = product.filter(color__title__in=color).distinct()
-        test.append(color)
+        # for i in color:
+        #     test.append(i)
+
     if size:
         product = product.filter(size__title__in=size).distinct()
-        test.append(size)
-    if request.GET.get('next'):
-        cat_2 = request.GET.getlist('next')
-        product = product.filter(category__title__in=cat_2).distinct()
+        # for i in size:
+        #     test.append(i)
+    if next_page:
+        # cat_2 = request.GET.getlist('next')
+        product = product.filter(category__title__in=next_page).distinct()
+        # for i in next_page:
+        #     test.append(i)
     if cat:
-        print("yes")
         product = product.filter(category__title__in=cat).distinct()
-        test.append(cat)
+        # for i in cat:
+        #     test.append(i)
     # print(name)
     if min_price and max_price:
         product = product.filter(price__gte=min_price, price__lte=max_price).distinct()
@@ -76,7 +82,9 @@ def product_list(request):
 
     if q:
         product = product.filter(title__icontains=q).distinct()
-    print(q)
+        # test.append(q)
+    for i in test:
+        print(request.GET.get(i))
     pagenumber = request.GET.get('page')
     paginator = Paginator(product, 1)
     pp = paginator.get_page(pagenumber)
