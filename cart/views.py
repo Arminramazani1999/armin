@@ -23,15 +23,21 @@ def cart_add(request, pk):
             'quantity')
         cart = Cart(request)
         cart.add(product, quantity, color, size)
-        qw = request.session['number'] = str(quantity)
-        print(qw)
+        # n = cart.total_test()
+        # print(n)
+        # request.session['number'] = str(n)
         # print(size, color, quantity)
         return redirect('cart:cart_detail')
 
 
 def cart_delete(request, id):
     cart = Cart(request)
+    # temp_sum = int(request.session.get('number'))
     cart.delete(id)
+    # print('sum = ', temp_sum)
+    # temp_sum = temp_sum - cart.test(id)
+    # request.session['number'] = str(temp_sum)
+    # print('cart.test(id) = ', cart.test(id))
     return redirect('cart:cart_detail')
 
 
@@ -47,6 +53,7 @@ def order_create(request):
         OrderItem.objects.create(order=order, product=item['product'], size=item['size'], color=item['color'],
                                  quantity=item['quantity'], price=item['price'])
     cart.remove_cart()
+    del request.session['number']
     return redirect('cart:order_detail', order.id)
 
 

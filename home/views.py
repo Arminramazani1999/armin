@@ -6,9 +6,7 @@ def home(request):
     product = Product.objects.all()
     categories = Category.objects.all()
     recent_product = Product.objects.all()[:4]
-    # sum = []
-    # n = int(request.session.get('number'))
-    # sum.append(n)
-    # print(sum)
+
+    # print(temp)
     return render(request, 'home/home.html',
                   {'products': product, 'categories': categories, 'recents': recent_product})

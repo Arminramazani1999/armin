@@ -15,7 +15,6 @@ class UserManager(BaseUserManager):
             phone=self.phone,
         )
 
-
         user.set_password(password)
         user.save(using=self._db)
         return user
@@ -96,7 +95,6 @@ class Address(models.Model):
 
     def __str__(self):
         return self.user.phone
-
 
 # class Registe_User(models.Model):
 #     first_name = models.CharField(max_length=50)

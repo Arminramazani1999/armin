@@ -37,6 +37,7 @@ class Product(models.Model):
     size = models.ManyToManyField(Size, blank=True, related_name="products")
     color = models.ManyToManyField(Color, related_name="products")
     created = models.DateTimeField(auto_now_add=True,null=True,blank=True)
+    review = models.IntegerField(default=0)
 
     class Meta:
         ordering = ('-created',)

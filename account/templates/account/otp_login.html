@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load widget_tweaks %}
 {% block A %}
 
 
     <!-- Contact Start -->
     <div class="container-fluid">
         <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span
-                class="bg-secondary pr-3">User Register / Login </span>  {#{{ request.user.phone }}#}
+                class="bg-secondary pr-3">User Register / Login </span>
         </h2>
         <div class="row px-xl-5">
             <div class="col-lg-7 mb-5">
@@ -15,18 +15,21 @@
                     <div id="success"></div>
                     <form method="post">
                         {% csrf_token %}
-                        <div class="control-group">
+                        <div class="row">
                             {% for error in form.non_field_errors %}
                                 <p class="alert alert-danger">
                                     {{ error }}
                                 </p>
                             {% endfor %}
-                            {{ form.phone }}
-                            {% for error in form.phone.errors %}
-                                <p class="alert alert-danger">
-                                    {{ error }}
-                                </p>
+
+                            {% for form in forms %}
+                                <div class="col-md-6 form-group">
+                                <label>{{ form.label }}</label>
+                                {{ form|attr:"class:form-control" }}
+                            </div>
                             {% endfor %}
+
+
 
                             <p class="help-block text-danger"></p>
                         </div>

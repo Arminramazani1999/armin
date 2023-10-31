@@ -73,20 +73,19 @@ class RegisterForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('fullname', 'phone', 'email', 'password1', 'password2')
-    # username = forms.CharField(max_length=40,
-    #                            widget=forms.TextInput(attrs={'class': "form-control"}))
-    # password = forms.CharField(max_length=40,
-    #                            widget=forms.PasswordInput(
-    #                                attrs={'class': "form-control", 'placeholder': "password..."}))
-    # rpassword = forms.CharField(max_length=40, widget=forms.PasswordInput(
-    #     attrs={'class': "form-control", 'placeholder': "rpassword..."}))
-    # email = forms.EmailField(max_length=40, widget=forms.EmailInput(attrs={'class': "form-control", 'placeholder': "email"}))
+        fields = ('fullname', 'email', 'password1', 'password2')
 
 
 class OtpLoginForm(forms.Form):
     phone = forms.CharField(widget=forms.TextInput(attrs={'claas': 'form-control'}),
                             validators=[validators.MaxLengthValidator(11)])
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+    #     self.fields["phone"].widget.attrs.update({'claas': 'form-input'})
+    #
+    # class Meta:
+    #     model = User
+    #     fields = ('fullname', 'phone', 'email', 'password1', 'password2')
 
 
 class CheckOtpForm(forms.Form):

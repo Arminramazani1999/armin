@@ -3,6 +3,7 @@
 
 
 {% block A %}
+    {% load product_extras %}
     <!-- Shop Start -->
     <div class="container-fluid">
         <div class="row px-xl-5">
@@ -12,7 +13,7 @@
                 <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filter by price</span>
                 </h5>
                 <form>
-
+{#                        {% if request.GET.min_price == 'min_price' %}placeholder="{{ request.GET.min_price }}" {% endif %}#}
                     <div class="bg-light p-4 mb-30">
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                             <label for="price-all">Min</label>
@@ -29,33 +30,33 @@
                     <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filter by cat</span>
                     </h5>
 
-                    {#                    <div class="bg-light p-4 mb-30">#}
-                    {#                        {% for category in categories %}#}
-                    {#                            {% if not category.parent %}#}
-                    {#                                <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">#}
-                    {#                                    <input type="checkbox" name="cat" value="{{ category }}" class="custom-control-input"#}
-                    {#                                           id="cat-1">#}
-                    {#                                    <label class="custom-control-label" for="cat-1">{{ category }}</label>#}
-                    {#                                    <span class="badge border font-weight-normal">150</span>#}
-                    {#                                </div>#}
-                    {#                            {% endif %}#}
-                    {#                        {% endfor %}#}
-                    {#                    </div>#}
+{#                                        <div class="bg-light p-4 mb-30">#}
+{#                                            {% for category in categories %}#}
+{#                                                {% if not category.parent %}#}
+{#                                                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">#}
+{#                                                        <input type="checkbox" name="cat" value="{{ category }}" class="custom-control-input"#}
+{#                                                               id="cat-1">#}
+{#                                                        <label class="custom-control-label" for="cat-1">{{ category }}</label>#}
+{#                                                        <span class="badge border font-weight-normal">150</span>#}
+{#                                                    </div>#}
+{#                                                {% endif %}#}
+{#                                            {% endfor %}#}
+{#                                        </div>#}
                     <div class="bg-light p-4 mb-30">
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" name="cat" value="{{ categories.0 }}" class="custom-control-input"
+                            <input type="checkbox" {% if request.GET.cat == 'لپ تاپ' %}checked{% endif %} name="cat" value="{{ categories.0 }}" class="custom-control-input"
                                    id="cat-1">
                             <label class="custom-control-label" for="cat-1">{{ categories.0 }}</label>
                             <span class="badge border font-weight-normal">150</span>
                         </div>
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" name="cat" value="{{ categories.1 }}" class="custom-control-input"
+                            <input type="checkbox" {% if request.GET.cat == 'موبایل' %}checked{% endif %} name="cat" value="{{ categories.1 }}" class="custom-control-input"
                                    id="cat-2">
                             <label class="custom-control-label" for="cat-2">{{ categories.1 }}</label>
                             <span class="badge border font-weight-normal">295</span>
                         </div>
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" name="cat" value="{{ categories.2 }}" class="custom-control-input"
+                            <input type="checkbox" {% if request.GET.cat == 'لباس' %}checked{% endif %} name="cat" value="{{ categories.2 }}" class="custom-control-input"
                                    id="cat-3">
                             <label class="custom-control-label" for="cat-3">{{ categories.2 }}</label>
                             <span class="badge border font-weight-normal">246</span>
@@ -69,27 +70,27 @@
                     </h5>
                     <div class="bg-light p-4 mb-30">
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" name="color" value="black" class="custom-control-input" id="color-1">
+                            <input type="checkbox"{% if request.GET.color == 'black' %}checked{% endif %} name="color" value="black" class="custom-control-input" id="color-1">
                             <label class="custom-control-label" for="color-1">Black</label>
                             <span class="badge border font-weight-normal">150</span>
                         </div>
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" name="color" value="white" class="custom-control-input" id="color-2">
+                            <input type="checkbox" {% if request.GET.color == 'white' %}checked{% endif %} name="color" value="white" class="custom-control-input" id="color-2">
                             <label class="custom-control-label" for="color-2">White</label>
                             <span class="badge border font-weight-normal">295</span>
                         </div>
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" name="color" value="red" class="custom-control-input" id="color-3">
+                            <input type="checkbox" {% if request.GET.color == 'red' %}checked{% endif %} name="color" value="red" class="custom-control-input" id="color-3">
                             <label class="custom-control-label" for="color-3">Red</label>
                             <span class="badge border font-weight-normal">246</span>
                         </div>
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" name="color" value="blue" class="custom-control-input" id="color-4">
+                            <input type="checkbox" {% if request.GET.color == 'blue' %}checked{% endif %} name="color" value="blue" class="custom-control-input" id="color-4">
                             <label class="custom-control-label" for="color-4">Blue</label>
                             <span class="badge border font-weight-normal">145</span>
                         </div>
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-                            <input type="checkbox" name="color" value="green" class="custom-control-input" id="color-5">
+                            <input type="checkbox" {% if request.GET.color == 'green' %}checked{% endif %} name="color" value="green" class="custom-control-input" id="color-5">
                             <label class="custom-control-label" for="color-5">Green</label>
                             <span class="badge border font-weight-normal">168</span>
                         </div>
@@ -100,27 +101,26 @@
                     </h5>
                     <div class="bg-light p-4 mb-30">
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" name="size" value="XS" class="custom-control-input" id="size-1">
+                            <input type="checkbox" {% if request.GET.size == 'XS' %}checked{% endif %} name="size" value="XS" class="custom-control-input" id="size-1">
                             <label class="custom-control-label" for="size-1">XS</label>
                             <span class="badge border font-weight-normal">150</span>
                         </div>
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" name="size" value="X" class="custom-control-input" id="size-2">
+                            <input type="checkbox" {% if request.GET.size == 'X' %}checked{% endif %} name="size" value="X" class="custom-control-input" id="size-2">
                             <label class="custom-control-label" for="size-2">X</label>
                             <span class="badge border font-weight-normal">295</span>
                         </div>
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" name="size" value="M" class="custom-control-input" id="size-3">
+                            <input type="checkbox" {% if request.GET.size == 'M' %}checked{% endif %} name="size" value="M" class="custom-control-input" id="size-3">
                             <label class="custom-control-label" for="size-3">M</label>
                             <span class="badge border font-weight-normal">246</span>
                         </div>
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" name="size" value="L" class="custom-control-input" id="size-4">
+                            <input type="checkbox" {% if request.GET.size == 'L' %}checked{% endif %} name="size" value="L" class="custom-control-input" id="size-4">
                             <label class="custom-control-label" for="size-4">L</label>
                             <span class="badge border font-weight-normal">145</span>
                         </div>
                         <input type="submit">
-                        <h1>ss{% for foo in test %}{{ foo }}{% endfor %}</h1>
                     </div>
                 </form>
 
@@ -203,17 +203,17 @@
                                 <ul class="pagination justify-content-center">
                                     {% if products.has_previous %}
                                         <li class="page-item"><a class="page-link"
-                                                                 href="?page={{ products.previous_page_number }}{% if request.GET.next %}&next={{ request.GET.next }}{% endif %}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">Previous</a>
+                                                                 href="{% if request.GET.next %}?page={{ products.previous_page_number }}&next={{ request.GET.next }}{% elif request.GET.q %}?page={{ products.previous_page_number }}&q={{ request.GET.q }}{% else %}{% my_url products.previous_page_number 'page' request.GET.urlencode %}{% endif %}">Previous</a>
                                         </li>
                                     {% endif %}
 
                                     {% for i in products.paginator.page_range %}
                                         {% if products.number == i %}
                                             <li class="page-item active"><a class="page-link"
-                                                                            href="?page={{ i }}{% if request.GET.next %}&next={{ request.GET.next }}{% endif %}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ i }}</a>
+                                                                            href="{% if request.GET.next %}?page={{ i }}&next={{ request.GET.next }}{% elif request.GET.q %}?page={{ i }}&q={{ request.GET.q }}{% else %}{% my_url products.pagination.num_pages 'page' request.GET.urlencode %}{% endif %}">{{ i }}</a>
                                             </li>
                                         {% else %}
-                                            <li><a class="page-link" href="?page={{ i }}{% if request.GET.next %}&next={{ request.GET.next }}{% endif %}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ i }}</a>
+                                            <li><a class="page-link" href="{% if request.GET.next %}?page={{ i }}&next={{ request.GET.next }}{% elif request.GET.q %}?page={{ i }}&q={{ request.GET.q }}{% else %}{% my_url products.pagination.num_pages 'page' request.GET.urlencode %}{% endif %}">{{ i }}</a>
                                             </li>
                                         {% endif %}
 
@@ -222,7 +222,7 @@
 {#                                                                            {% for te in test %}{% if request.GET.te %}&{{ te }}={{ request.GET.te }}{% endif %}{% endfor %}#}
                                     {% if products.has_next %}
                                         <li class="page-item"><a class="page-link"
-                                                                 href="?page={{ products.next_page_number }}{% if request.GET.next %}&next={{ request.GET.next }}{% endif %}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">Next</a>
+                                                                 href="{% if request.GET.next %}?page={{ products.next_page_number }}&next={{ request.GET.next }}{% elif request.GET.q %}?page={{ products.next_page_number }}&q={{ request.GET.q }}{% else %}{% my_url products.next_page_number 'page' request.GET.urlencode %}{% endif %}">Next</a>
                                         </li>
                                     {% endif %}
                                 </ul>

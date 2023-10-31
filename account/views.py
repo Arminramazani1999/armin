@@ -63,12 +63,14 @@ def otp_login(request):  # OtpLoginView
         else:
             form.add_error('phone', 'in valid user data')
 
-    return render(request, 'account/otp_login.html', {'form': form})
+    return render(request, 'account/otp_login.html', {'forms': form})
 
 
 def user_check_cod(request):
     token = request.GET.get('token')
     form = CheckOtpForm()
+    otp = Otp.objects.get(token=token)
+    temp_code = otp.code
     if request.method == 'POST':
         form = CheckOtpForm(data=request.POST)
         if form.is_valid():
@@ -78,48 +80,62 @@ def user_check_cod(request):
                 user, is_create = User.objects.get_or_create(phone=otp.phone)
                 login(request, user, backend="django.contrib.auth.backends.ModelBackend")
                 otp.delete()
-                return redirect('home:home')
+                return redirect('account:register')
 
-    return render(request, 'account/check_code.html', {'form': form})
-
+    return render(request, 'account/check_code.html', {'form': form, 'temp_code': temp_code})
 
 def user_logout(request):
     logout(request)
     return redirect('home:home')
 
 
+# def user_register(request):
+#     if request.user.is_anonymous:
+#         form = RegisterForm()
+#         if request.method == 'POST':
+#             form = RegisterForm(data=request.POST)
+#             if form.is_valid():
+#                 form.save()
+#                 print(request.user)
+#                 return redirect('home:home')
+#     else:
+#         return redirect('home:home')
+#     return render(request, 'account/register.html', {'form': form})
+
 def user_register(request):
-    if request.user.is_anonymous:
-        form = RegisterForm()
-        if request.method == 'POST':
-            form = RegisterForm(data=request.POST)
-            if form.is_valid():
-                form.save()
-                print(request.user)
-                return redirect('home:home')
-    else:
-        return redirect('home:home')
-    return render(request, 'account/register.html', {'form': form})
-
-
-
-
+    user = request.user
+    # is_paid = user.is_paid
+    # if is_paid:
+    #     return redirect('home:home')
+    form = RegisterForm(instance=user)
+    if request.method == 'POST':
+        form = RegisterForm(data=request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            # user.is_paid = True
+            # user.save()
+            login(request, user, backend="django.contrib.auth.backends.ModelBackend")
+            return redirect('home:home')
+    return render(request, 'account/register.html', {'forms': form})
 
 # def user_register(request):
-#     user = request.user
-#     is_paid = user.is_paid
-#     if is_paid:
-#         return redirect('home:home')
-#     form = RegisterForm(instance=user)
+#     token = request.GET.get('token')
+#     # user = request.user
+#     # print("user = ", user)
+#     # is_paid = user.is_paid
+#     # if is_paid:
+#     #     return redirect('home:home')
+#     form = RegisterForm()
 #     if request.method == 'POST':
-#         form = RegisterForm(data=request.POST, instance=user)
-#         print(form)
-#         print(request.POST)
+#         form = RegisterForm(data=request.POST)
 #         if form.is_valid():
 #             form.save()
-#             user.is_paid = True
-#             user.save()
-#
-#             # login(request, user)
+#             # user.is_paid = True
+#             # user.save()
+#             otp = Otp.objects.get(token=token)
+#             user, is_create = User.objects.get_or_create(phone=otp.phone)
+#             print("user_2 = ", user)
+#             otp.delete()
+#             login(request, user, backend="django.contrib.auth.backends.ModelBackend")
 #             return redirect('home:home')
-#     return render(request, 'account/register.html', {'form': form})
+#     return render(request, 'account/register.html', {'forms': form})

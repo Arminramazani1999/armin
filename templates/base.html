@@ -43,17 +43,24 @@
         <div class="col-lg-6 text-center text-lg-right">
             <div class="d-inline-flex align-items-center">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">My
-                        Account
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        {% if request.user.is_authenticated %}
+                    {% if request.user.is_authenticated %}
+                        <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">
+                            {{ request.user.fullname }}
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right">
                             <a class="dropdown-item" type="button">profile</a>
                             <a class="dropdown-item" href="{% url 'account:logout' %}" type="button">Logout</a>
-                        {% else %}
-                            <a class="dropdown-item" href="{% url 'account:otp_login' %}" type="button">Register/Login</a>
-                        {% endif %}
-                    </div>
+                        </div>
+                    {% else %}
+                        <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">My
+                            Account
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="{% url 'account:otp_login' %}" type="button">Register</a>
+                            <a class="dropdown-item" href="{% url 'account:login' %}" type="button">Login</a>
+                        </div>
+                    {% endif %}
+
                 </div>
             </div>
             <div class="d-inline-flex align-items-center d-block d-lg-none">

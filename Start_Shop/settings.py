@@ -37,10 +37,11 @@ INSTALLED_APPS = [
 
     'home',
     'account',
-    'product',
+    'product.apps.ProductConfig',
     'cart',
     'widget_tweaks',
     'django_render_partial',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
