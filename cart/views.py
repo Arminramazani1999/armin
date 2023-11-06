@@ -53,7 +53,7 @@ def order_create(request):
         OrderItem.objects.create(order=order, product=item['product'], size=item['size'], color=item['color'],
                                  quantity=item['quantity'], price=item['price'])
     cart.remove_cart()
-    del request.session['number']
+    # del request.session['number']
     return redirect('cart:order_detail', order.id)
 
 
