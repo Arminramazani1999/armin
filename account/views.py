@@ -104,9 +104,6 @@ def user_logout(request):
 
 def user_register(request):
     user = request.user
-    # is_paid = user.is_paid
-    # if is_paid:
-    #     return redirect('home:home')
     form = RegisterForm(instance=user)
     if request.method == 'POST':
         form = RegisterForm(data=request.POST, instance=user)

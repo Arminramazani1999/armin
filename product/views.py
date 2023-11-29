@@ -95,7 +95,7 @@ def product_list(request):
     if q:
         product = product.filter(title__icontains=q).distinct()
     page_number = request.GET.get('page')
-    paginator = Paginator(product, 1)
+    paginator = Paginator(product,1)
     object_list = paginator.get_page(page_number)
 
     return render(request, 'product/product_list.html', {'products': object_list, 'categories': categoryss})

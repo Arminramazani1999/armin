@@ -9,7 +9,7 @@ class UserManager(BaseUserManager):
         birth and password.
         """
         if not phone:
-            raise ValueError("Users must have an email address")
+            raise ValueError("Users must have an phone address")
 
         user = self.model(
             phone=self.phone,
@@ -41,14 +41,12 @@ class User(AbstractBaseUser):
         unique=True,
     )
     fullname = models.CharField(max_length=50, verbose_name="نام کامل")
-    rpassword = models.CharField(max_length=40, null=True, blank=True)
     # date_of_birth = models.DateField()
     # user faal ast ya admin ast
     phone = models.CharField(max_length=12, unique=True, null=True, verbose_name='شماره موبایل')
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False, verbose_name='ادمین')
     is_paid = models.BooleanField(default=False)
-
     objects = UserManager()
     # ahraz hoyet
     USERNAME_FIELD = "phone"
