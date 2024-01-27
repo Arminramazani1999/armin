@@ -80,14 +80,11 @@ def product_list(request):
     min_price = request.GET.get('min_price')
     max_price = request.GET.get('max_price')
     q = request.GET.get('q')
-    next_page = request.GET.getlist('next')
 
     if color:
         product = product.filter(color__title__in=color).distinct()
     if size:
         product = product.filter(size__title__in=size).distinct()
-    if next_page:
-        product = product.filter(category__title__in=next_page).distinct()
     if cat:
         product = product.filter(category__title__in=cat).distinct()
     if min_price and max_price:
@@ -96,6 +93,8 @@ def product_list(request):
         product = product.filter(title__icontains=q).distinct()
     page_number = request.GET.get('page')
     paginator = Paginator(product,1)
+
+    print(paginator.num_pages)
     object_list = paginator.get_page(page_number)
 
     return render(request, 'product/product_list.html', {'products': object_list, 'categories': categoryss})

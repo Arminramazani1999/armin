@@ -17,13 +17,15 @@ def cart_detail(request):
 
 
 def cart_add(request, pk):
-    if request.method == 'POST':
-        product = get_object_or_404(Product, id=pk)
-        size, color, quantity = request.POST.get('size', 'empty'), request.POST.get('color', 'empty'), request.POST.get(
-            'quantity')
-        cart = Cart(request)
-        cart.add(product, quantity, color, size)
-        return redirect('cart:cart_detail')
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            product = get_object_or_404(Product, id=pk)
+            size, color, quantity = request.POST.get('size', 'empty'), request.POST.get('color', 'empty'), request.POST.get(
+                'quantity')
+            cart = Cart(request)
+            cart.add(product, quantity, color, size)
+            return redirect('cart:cart_detail')
+    return redirect("account:login");
 
 
 def cart_delete(request, id):

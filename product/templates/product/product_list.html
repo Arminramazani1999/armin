@@ -210,10 +210,10 @@
                                     {% for i in products.paginator.page_range %}
                                         {% if products.number == i %}
                                             <li class="page-item active"><a class="page-link"
-                                                                            href="{% if request.GET.next %}?page={{ i }}&next={{ request.GET.next }}{% elif request.GET.q %}?page={{ i }}&q={{ request.GET.q }}{% else %}{% my_url products.pagination.num_pages 'page' request.GET.urlencode %}{% endif %}">{{ i }}</a>
+                                                                            href="{% if request.GET.q %}?page={{ i }}&q={{ request.GET.q }}{% else %}?page={{ i }}&{% my_url products.pagination.num_pages 'page' request.GET.urlencode %}{% endif %}">{{ i }}</a>
                                             </li>
                                         {% else %}
-                                            <li><a class="page-link" href="{% if request.GET.next %}?page={{ i }}&next={{ request.GET.next }}{% elif request.GET.q %}?page={{ i }}&q={{ request.GET.q }}{% else %}{% my_url products.pagination.num_pages 'page' request.GET.urlencode %}{% endif %}">{{ i }}</a>
+                                            <li><a class="page-link" href="{% if request.GET.q %}?page={{ i }}&q={{ request.GET.q }}{% else %}?page={{ i }}&{% my_url products.pagination.num_pages 'page' request.GET.urlencode %}{% endif %}">{{ i }}</a>
                                             </li>
                                         {% endif %}
 
